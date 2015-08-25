@@ -16,9 +16,9 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 
-#define RSA_SERVER_CERT "server.crt"
-#define RSA_SERVER_KEY	"server.key"
-#define RSA_CA_CERT		"cacert.pem"
+#define RSA_SERVER_CERT "server3.crt"
+#define RSA_SERVER_KEY	"server3.key"
+#define RSA_CA_CERT		"ca.crt"
 #define SERVER_PORT		443
 #define OK 0
 #define ERROR -1
@@ -64,15 +64,34 @@ void track_handshake_state_cb(SSL *ssl, int where, int ret_code)
 
 int validateCertificateDates(X509_STORE_CTX *x509_ctx,X509 *err_cert,int *preverify_ok) {
 	int cmpTimeResult = -1;
-	int retVal = 0;
+	int retVal = 0,nm_i;
 	time_t currentTime;
-	
+	struct timespec time_value;
+	ASN1_TIME *nbf = X509_get_notBefore(err_cert);
+	ASN1_TIME *naf = X509_get_notAfter(err_cert);
+	clock_gettime(CLOCK_REALTIME,&time_value);
+	currentTime=time_value.tv_sec;
 	//get the timeinfo.
+	#ifdef NM_DEBUG
+	printf("Entring [%s][%s][%d] currenttime=%x\n",__FILE__,__FUNCTION__,__LINE__,currentTime);
+	printf("x509_ctx->error=%d\n",x509_ctx->error);
+	printf("Time stamp for nbf is \n");
+	for(nm_i=0;nm_i<nbf->length;nm_i++)
+	printf("%c",nbf->data[nm_i]);
+	printf("\n");
+	printf("Time stamp for naf is \n");
+	for(nm_i=0;nm_i<naf->length;nm_i++)
+	printf("%c",naf->data[nm_i]);
+	printf("\n");
+	printf("Tot length is nbf=%d naf=%d\n",nbf->length,naf->length);
+	#endif
+	X509_cmp_time(nbf, &currentTime);
 	
 	switch (x509_ctx->error) {
 		case X509_V_ERR_CERT_NOT_YET_VALID:
         case X509_V_ERR_CERT_HAS_EXPIRED:
 			if (currentTime > 0) {
+				//printf("[%s][%s][%d] \n",__FILE__,__FUNCTION__,__LINE__);
 				cmpTimeResult = X509_cmp_time(X509_get_notBefore(err_cert), &currentTime);
 				if (cmpTimeResult == 0) {
 				    retVal = X509_V_ERR_ERROR_IN_CERT_NOT_BEFORE_FIELD;
@@ -82,6 +101,7 @@ int validateCertificateDates(X509_STORE_CTX *x509_ctx,X509 *err_cert,int *prever
 			}
 			if (retVal == 0) {
 				if (time > 0) {
+					//printf("[%s][%s][%d] \n",__FILE__,__FUNCTION__,__LINE__);
 					cmpTimeResult = X509_cmp_time(X509_get_notAfter(err_cert), &currentTime);
 					if (cmpTimeResult == 0) {
 						retVal = X509_V_ERR_ERROR_IN_CERT_NOT_AFTER_FIELD;
@@ -93,9 +113,11 @@ int validateCertificateDates(X509_STORE_CTX *x509_ctx,X509 *err_cert,int *prever
 			if (retVal == 0) {
 				x509_ctx->error = 0;
 				*preverify_ok = 1;
+				//printf("[%s][%s][%d] \n",__FILE__,__FUNCTION__,__LINE__);
 			}
 		break;
 	}
+	//printf("Exitintg [%s][%s][%d] \n",__FILE__,__FUNCTION__,__LINE__);
 	return retVal;
 }
 
@@ -184,6 +206,7 @@ SSL_CTX *initSSLServerContext() {
  
       /* Check if the server certificate and private-key matches */
     if (!SSL_CTX_check_private_key(ssl_ctx)) {
+		printf("Inside the if condition of ssl_ctx_check_private_key condiditon [%d]\n",__LINE__);
 #ifdef SSL_TRACE
 		printf("SSL_CTX_check_private_key() failed : %s.\n", ERR_error_string(ERR_get_error(), NULL));
 #endif
@@ -194,12 +217,12 @@ SSL_CTX *initSSLServerContext() {
 	/* Load the RSA CA certificate into the SSL contextstructure */
 	if (!SSL_CTX_load_verify_locations(ssl_ctx, RSA_CA_CERT, NULL)) {
 #ifdef SSL_TRACE
-		printf("SSL_CTX_check_private_key() failed : %s.\n", ERR_error_string(ERR_get_error(), NULL));		
+		printf("SSL_CTX_load_verify_locations() failed : %s.\n", ERR_error_string(ERR_get_error(), NULL));		
 #endif
 		SSL_CTX_free(ssl_ctx);
 		return NULL;
 	}
-	printf("returning ssl_ctx %x\n",ssl_ctx);
+	//printf("returning ssl_ctx %x\n",ssl_ctx);
 	return ssl_ctx;
 } 
 
@@ -236,8 +259,7 @@ int initServerSocket() {
 
 
 	
-void tSSLTestServer(int arg0, int arg1, int arg2, int arg3, int arg4, int arg5,
-		int arg6, int arg7, int arg8, int arg9, int arg10) {
+void cve1789_server() {
 	
 	SSL_CTX *ssl_ctx = NULL;		
 	SSL *ssl = NULL;
@@ -246,6 +268,7 @@ void tSSLTestServer(int arg0, int arg1, int arg2, int arg3, int arg4, int arg5,
 	int client_socket = ERROR;
 	struct sockaddr_in sa_client;
     size_t client_len = sizeof(sa_client);
+    int number;
     
 	/* Initalize OpenSSL library */
 	initSSLLibrary();
@@ -281,11 +304,14 @@ void tSSLTestServer(int arg0, int arg1, int arg2, int arg3, int arg4, int arg5,
  
 				status = SSL_accept(ssl);
 				if (status == 1) {
+				printf("Connection is established\n");
+				scanf("%d\n",&number);
 					/* Receive data from the SSL client */
 					/* Send data to the SSL client */					 
 				} else {
 					printf("SSL_accept returned error, %s\n", ERR_error_string(ERR_get_error(), NULL));
 				}
+				printf("Connection terminating..\n");
 				SSL_shutdown(ssl);
 			}
 		}
@@ -301,10 +327,3 @@ void tSSLTestServer(int arg0, int arg1, int arg2, int arg3, int arg4, int arg5,
 		SSL_CTX_free(ssl_ctx);
 }
 
-void tCVE20151789Server() {
-	int  taskId = -1;
-	char taskName[]   = "tSslDummyServer";
-	int  taskPriority  = 70;
-	int  taskStackSize = 10000;  	
-	taskId = taskSpawn(taskName, taskPriority, 0, taskStackSize ,(FUNCPTR)tSSLTestServer,0,0,0,0,0,0,0,0,0,0);
-}

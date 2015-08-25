@@ -812,11 +812,19 @@ int X509_cmp_time(ASN1_TIME *ctm, time_t *cmp_time)
 	ASN1_TIME atm;
 	long offset;
 	char buff1[24],buff2[24],*p;
-	int i,j, remaining;
-
+	int i,j;
+	char *lastbyte;
+#ifdef RIC_190022 //cve 2015-1789
+	int  remaining;
+#endif
 	p=buff1;
+	i=ctm->length;
+    str=(char *)ctm->data;
+	lastbyte = str + i;
+#ifdef RIC_190022
 	remaining = ctm->length;
-	str=(char *)ctm->data;
+#endif
+#ifdef RIC_190022
     /*
      * Note that the following (historical) code allows much more slack in the
      * time format than RFC5280. In RFC5280, the representation is fixed:
@@ -890,13 +898,66 @@ int X509_cmp_time(ASN1_TIME *ctm, time_t *cmp_time)
         if (str[1] < '0' || str[1] > '9' || str[2] < '0' || str[2] > '9' ||
             str[3] < '0' || str[3] > '9' || str[4] < '0' || str[4] > '9')
 			return 0;
+               
+		 if (((unsigned int)(str + 4)) > ((unsigned int)lastbyte) ) { 
+		 	printf("\n[%s]%d: OUT OF BOUND READ ACCESS DETECTED!\n\n",__FUNCTION__,__LINE__);
+		 	}
+		
 		offset=((str[1]-'0')*10+(str[2]-'0'))*60;
 		offset+=(str[3]-'0')*10+(str[4]-'0');
 		if (*str == '-')
 			offset= -offset;
 		}
+	atm.flags = 0;
+#else
+	if (ctm->type == V_ASN1_UTCTIME)
+		{
+		if ((i < 11) || (i > 17)) return 0;
+		memcpy(p,str,10);
+		p+=10;
+		str+=10;
+		}
+	else
+		{
+		if (i < 13) return 0;
+		memcpy(p,str,12);
+		p+=12;
+		str+=12;
+		}
+
+	if ((*str == 'Z') || (*str == '-') || (*str == '+'))
+		{ *(p++)='0'; *(p++)='0'; }
+	else
+		{ 
+		*(p++)= *(str++);
+		*(p++)= *(str++);
+		/* Skip any fractional seconds... */
+		if (*str == '.')
+			{
+			str++;
+			while ((*str >= '0') && (*str <= '9')) str++;
+			}
+		
+		}
+	*(p++)='Z';
+	*(p++)='\0';
+
+	if (*str == 'Z')
+		offset=0;
+	else
+		{
+		if ((*str != '+') && (*str != '-'))
+			return 0;
+ 			if (((unsigned int)(str + 4)) > ((unsigned int)lastbyte) ) { 
+		 	printf("\n [%s]%d: OUT OF BOUND READ ACCESS DETECTED!\n",__FUNCTION__,__LINE__);
+		 	}
+		 	offset=((str[1]-'0')*10+(str[2]-'0'))*60;
+			offset+=(str[3]-'0')*10+(str[4]-'0');
+		if (*str == '-')
+			offset= -offset;
+		}
+#endif
 	atm.type=ctm->type;
-    atm.flags = 0;
 	atm.length=sizeof(buff2);
 	atm.data=(unsigned char *)buff2;
 
