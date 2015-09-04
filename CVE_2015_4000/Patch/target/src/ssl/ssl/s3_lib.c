@@ -685,11 +685,7 @@ OPENSSL_GLOBAL SSL_CIPHER ssl3_ciphers[]={
 
 /* Cipher 26 VRS */
 	{
-	#ifdef RIC_190022 //cve 2015-4000
-	0,
-	#else
 	1,
-	#endif
 	SSL3_TXT_KRB5_DES_40_CBC_SHA,
 	SSL3_CK_KRB5_DES_40_CBC_SHA,
 	SSL_kKRB5|SSL_aKRB5|  SSL_DES|SSL_SHA1   |SSL_SSLV3,
@@ -703,11 +699,7 @@ OPENSSL_GLOBAL SSL_CIPHER ssl3_ciphers[]={
 
 /* Cipher 27 VRS */
 	{
-	#ifdef RIC_190022 //cve 2015-4000
-	0,
-	#else
 	1,
-	#endif
 	SSL3_TXT_KRB5_RC2_40_CBC_SHA,
 	SSL3_CK_KRB5_RC2_40_CBC_SHA,
 	SSL_kKRB5|SSL_aKRB5|  SSL_RC2|SSL_SHA1   |SSL_SSLV3,
@@ -721,11 +713,7 @@ OPENSSL_GLOBAL SSL_CIPHER ssl3_ciphers[]={
 
 /* Cipher 28 VRS */
 	{
-	#ifdef RIC_190022 //cve 2015-4000
-	0,
-	#else
 	1,
-	#endif
 	SSL3_TXT_KRB5_RC4_40_SHA,
 	SSL3_CK_KRB5_RC4_40_SHA,
 	SSL_kKRB5|SSL_aKRB5|  SSL_RC4|SSL_SHA1   |SSL_SSLV3,
@@ -739,11 +727,7 @@ OPENSSL_GLOBAL SSL_CIPHER ssl3_ciphers[]={
 
 /* Cipher 29 VRS */
 	{
-	#ifdef RIC_190022 //cve 2015-4000
-	0,
-	#else
 	1,
-	#endif
 	SSL3_TXT_KRB5_DES_40_CBC_MD5,
 	SSL3_CK_KRB5_DES_40_CBC_MD5,
 	SSL_kKRB5|SSL_aKRB5|  SSL_DES|SSL_MD5    |SSL_SSLV3,
@@ -757,11 +741,7 @@ OPENSSL_GLOBAL SSL_CIPHER ssl3_ciphers[]={
 
 /* Cipher 2A VRS */
 	{
-	#ifdef RIC_190022 //cve 2015-4000
-	0,
-	#else
 	1,
-	#endif
 	SSL3_TXT_KRB5_RC2_40_CBC_MD5,
 	SSL3_CK_KRB5_RC2_40_CBC_MD5,
 	SSL_kKRB5|SSL_aKRB5|  SSL_RC2|SSL_MD5    |SSL_SSLV3,
@@ -775,11 +755,7 @@ OPENSSL_GLOBAL SSL_CIPHER ssl3_ciphers[]={
 
 /* Cipher 2B VRS */
 	{
-	#ifdef RIC_190022 //cve 2015-4000
-	0,
-	#else
 	1,
-	#endif
 	SSL3_TXT_KRB5_RC4_40_MD5,
 	SSL3_CK_KRB5_RC4_40_MD5,
 	SSL_kKRB5|SSL_aKRB5|  SSL_RC4|SSL_MD5    |SSL_SSLV3,
@@ -797,11 +773,7 @@ OPENSSL_GLOBAL SSL_CIPHER ssl3_ciphers[]={
 	/* New TLS Export CipherSuites */
 	/* Cipher 60 */
 	    {
-	    #ifdef RIC_190022 //cve 2015-4000
-		0,
-		#else
-		1,
-		#endif
+	    1,
 	    TLS1_TXT_RSA_EXPORT1024_WITH_RC4_56_MD5,
 	    TLS1_CK_RSA_EXPORT1024_WITH_RC4_56_MD5,
 	    SSL_kRSA|SSL_aRSA|SSL_RC4|SSL_MD5|SSL_TLSV1,
@@ -814,11 +786,7 @@ OPENSSL_GLOBAL SSL_CIPHER ssl3_ciphers[]={
 	    },
 	/* Cipher 61 */
 	    {
-	    #ifdef RIC_190022 //cve 2015-4000
-		0,
-		#else
-		1,
-		#endif
+	    1,
 	    TLS1_TXT_RSA_EXPORT1024_WITH_RC2_CBC_56_MD5,
 	    TLS1_CK_RSA_EXPORT1024_WITH_RC2_CBC_56_MD5,
 	    SSL_kRSA|SSL_aRSA|SSL_RC2|SSL_MD5|SSL_TLSV1,
@@ -831,11 +799,7 @@ OPENSSL_GLOBAL SSL_CIPHER ssl3_ciphers[]={
 	    },
 	/* Cipher 62 */
 	    {
-	    #ifdef RIC_190022 //cve 2015-4000
-		0,
-		#else
-		1,
-		#endif
+	    1,
 	    TLS1_TXT_RSA_EXPORT1024_WITH_DES_CBC_SHA,
 	    TLS1_CK_RSA_EXPORT1024_WITH_DES_CBC_SHA,
 	    SSL_kRSA|SSL_aRSA|SSL_DES|SSL_SHA|SSL_TLSV1,
@@ -865,11 +829,7 @@ OPENSSL_GLOBAL SSL_CIPHER ssl3_ciphers[]={
 	    },
 	/* Cipher 64 */
 	    {
-	    #ifdef RIC_190022 //cve 2015-4000
-		0,
-		#else
-		1,
-		#endif
+	    1,
 	    TLS1_TXT_RSA_EXPORT1024_WITH_RC4_56_SHA,
 	    TLS1_CK_RSA_EXPORT1024_WITH_RC4_56_SHA,
 	    SSL_kRSA|SSL_aRSA|SSL_RC4|SSL_SHA|SSL_TLSV1,
