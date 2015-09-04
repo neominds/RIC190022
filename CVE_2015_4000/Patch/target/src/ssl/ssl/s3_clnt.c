@@ -174,9 +174,6 @@ int ssl3_connect(SSL *s)
 	RAND_add(&Time,sizeof(Time),0);
 	ERR_clear_error();
 	clear_sys_error();
-	
-	printf("Entring [%s][%s][%d] \n",__FILE__,__FUNCTION__,__LINE__);
-
 	if (s->info_callback != NULL)
 		cb=s->info_callback;
 	else if (s->ctx->info_callback != NULL)
@@ -188,7 +185,6 @@ int ssl3_connect(SSL *s)
 	for (;;)
 		{
 		state=s->state;
-	printf("[%s][%s][%d] state=%d \n",__FILE__,__FUNCTION__,__LINE__,state);
 		switch(s->state)
 			{
 		case SSL_ST_RENEGOTIATE:
@@ -1019,7 +1015,6 @@ static int ssl3_get_key_exchange(SSL *s)
 	EVP_MD_CTX_init(&md_ctx);
 
 #endif
-printf("[%s][%s][%d] \n",__FILE__,__FUNCTION__,__LINE__);
 
 #ifndef OPENSSL_NO_RSA
 	if (alg & SSL_kRSA)
@@ -1090,7 +1085,6 @@ printf("[%s][%s][%d] \n",__FILE__,__FUNCTION__,__LINE__);
 #ifndef OPENSSL_NO_DH
 	else if (alg & SSL_kEDH)
 		{
-		printf("[%s][%s][%d] \n",__FILE__,__FUNCTION__,__LINE__);
 		if ((dh=DH_new()) == NULL)
 			{
 			SSLerr(SSL_F_SSL3_GET_KEY_EXCHANGE,ERR_R_DH_LIB);
@@ -1273,7 +1267,6 @@ printf("[%s][%s][%d] \n",__FILE__,__FUNCTION__,__LINE__);
 		}
 	EVP_PKEY_free(pkey);
 	EVP_MD_CTX_cleanup(&md_ctx);
-	printf("Exiting [%s][%s][%d] \n",__FILE__,__FUNCTION__,__LINE__);
 	return(1);
 f_err:
 	ssl3_send_alert(s,SSL3_AL_FATAL,al);
