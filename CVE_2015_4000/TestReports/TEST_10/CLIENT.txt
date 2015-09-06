@@ -1,0 +1,9 @@
+-> nm_client_main("5","-ssl3","-cipher","EXP-EDH-RSA-DES-CBC-SHA","-connect","192.168.1.78:4433")
+creating ssl context
+calling SSL_new
+calling init_client
+CONNECTED(00000004)
+8385072:error:140830B5:SSL routines:SSL3_CLIENT_HELLO:no ciphers available:s3_clnt.c:572:
+value = 0 = 0x0
+-> 
+

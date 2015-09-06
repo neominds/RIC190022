@@ -1,0 +1,33 @@
+-> nm_server_main("7","-ssl3","-cert","sha1rsa.pem","-key","sha1rsakey.pem","-accept","4433")
+Using default temp DH parameters
+ACCEPT
+bad gethostbyaddr
+-----BEGIN SSL SESSION PARAMETERS-----
+MHMCAQECAgMABAIAFQQgMiijwXd2pxDNcA7UQkzzVIYTbN3KpD28Gx34zZiDdsQE
+MFCFSvOKP9M+cBi71XojjP0pCeg9usbKenApTkNXd303j1IqEibuNLAyyWgbtoY4
+cqEEAgIA86IEAgIcIKQGBAQAAAAB
+-----END SSL SESSION PARAMETERS-----
+Shared ciphers:EDH-RSA-DES-CBC-SHA
+CIPHER is EDH-RSA-DES-CBC-SHA
+HELLO FROM SERVER
+HELLO FROM CLIENT
+Q
+DONE
+shutdown accept socket
+shutting down SSL
+CONNECTION CLOSED
+   1 items in the session cache
+   0 client connects (SSL_connect())
+   0 client renegotiates (SSL_connect())
+   0 client connects that finished
+   1 server accepts (SSL_accept())
+   0 server renegotiates (SSL_accept())
+   1 server accepts that finished
+   0 session cache hits
+   0 session cache misses
+   0 session cache timeouts
+   0 callback cache hits
+   0 cache full overflows (128 allowed)
+value = 0 = 0x0
+-> 
+

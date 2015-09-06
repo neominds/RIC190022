@@ -1,0 +1,11 @@
+-> nm_server_main("7","-ssl3","-cert","sha1rsa.pem","-key","sha1rsakey.pem","-accept","4433")
+Using default temp DH parameters
+ACCEPT
+bad gethostbyaddr
+ERROR
+8385072:error:1409B174:SSL routines:SSL3_SEND_SERVER_KEY_EXCHANGE:dh key too small:s3_srvr.c:1168:
+shutting down SSL
+CONNECTION CLOSED
+ACCEPT
+
+

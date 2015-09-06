@@ -1,0 +1,64 @@
+-> nm_client_main("5","-ssl3","-cipher","EDH-RSA-DES-CBC-SHA","-connect","192.168.1.78:4433")
+creating ssl context
+calling SSL_new
+calling init_client
+CONNECTED(00000004)
+depth=0 /C=in/ST=ka/L=ba/O=neo/OU=neo/CN=neo/emailAddress=neo@neo.in
+verify error:num=18:self signed certificate
+verify return:1
+depth=0 /C=in/ST=ka/L=ba/O=neo/OU=neo/CN=neo/emailAddress=neo@neo.in
+verify return:1
+---
+Certificate chain
+ 0 s:/C=in/ST=ka/L=ba/O=neo/OU=neo/CN=neo/emailAddress=neo@neo.in
+   i:/C=in/ST=ka/L=ba/O=neo/OU=neo/CN=neo/emailAddress=neo@neo.in
+---
+Server certificate
+-----BEGIN CERTIFICATE-----
+MIIDqzCCApOgAwIBAgIJAKSW2YPnX+x9MA0GCSqGSIb3DQEBBQUAMGwxCzAJBgNV
+BAYTAmluMQswCQYDVQQIDAJrYTELMAkGA1UEBwwCYmExDDAKBgNVBAoMA25lbzEM
+MAoGA1UECwwDbmVvMQwwCgYDVQQDDANuZW8xGTAXBgkqhkiG9w0BCQEWCm5lb0Bu
+ZW8uaW4wHhcNMTUwNzI0MTIyNzU0WhcNMTcwNzIzMTIyNzU0WjBsMQswCQYDVQQG
+EwJpbjELMAkGA1UECAwCa2ExCzAJBgNVBAcMAmJhMQwwCgYDVQQKDANuZW8xDDAK
+BgNVBAsMA25lbzEMMAoGA1UEAwwDbmVvMRkwFwYJKoZIhvcNAQkBFgpuZW9AbmVv
+LmluMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA4wLS7Axqp0gpMKCo
+AnYbDm03FodvfpnXyWuxCrOEe8VIlmj8OtoSPGRvZi7K8yCUB3qYQFuj1XyuzH40
+oysmYMgVQ45oY9mc0WejX9ZEGaP+hm4T/0wG5Z6+jkHGUEqIWsxR6Df4OqjSkjvP
+xlel749Ed4la7JQW4WmTLRVTumguUrxg6DyZDkKopUb3wWvgFd3DPWwjwtHDAI2/
+9LCUe0r+j3vpFxr57p37jUrOTe1NeOvgD80gRXuGgw/qzIgaNDAvPVyd/k3d9yQk
+DvhXSyswuQQJod6q5GCN7S3NSSboDM/nQBoyt9YavQme6lIOMaVSSIPaZ396LDSO
+dqQYhQIDAQABo1AwTjAdBgNVHQ4EFgQUBYme2EOWSPf2EA0hhT9qJxeUJRgwHwYD
+VR0jBBgwFoAUBYme2EOWSPf2EA0hhT9qJxeUJRgwDAYDVR0TBAUwAwEB/zANBgkq
+hkiG9w0BAQUFAAOCAQEAzqpz26I/qnPlkAApqROCjWDSBaZzA8M8xorOJsm+jTuD
+Q0jyVpOwHAyugOhJIIEVRiHFe7yTpUgdQEdMdJq6io0vT68V/q/+OsrDp8J3x/Fz
+l6SENJ4n93IMvC0henSHs67ox2/gOdM9w0LbqmitiJQrJaKYcDjKayYG5R1Jj5L2
+dUWIE+aYOlG+6/xzsrjf0pvEt6MiqwPEA3uX4LjwpeRbAabEN0DNXvOaofAoHvLN
+mtkrwatAA4zGTfk9Av1ZltbnsjAl4LhCRPk0AdeRziOVhQOIpNzQB8zebtJqVvyt
+AzmTZn41VyxGydPJQqpzN4ol9Pm7wy3o9YJMhk9bgQ==
+-----END CERTIFICATE-----
+subject=/C=in/ST=ka/L=ba/O=neo/OU=neo/CN=neo/emailAddress=neo@neo.in
+issuer=/C=in/ST=ka/L=ba/O=neo/OU=neo/CN=neo/emailAddress=neo@neo.in
+---
+No client certificate CA names sent
+---
+SSL handshake has read 1651 bytes and written 264 bytes
+---
+New, TLSv1/SSLv3, Cipher is EDH-RSA-DES-CBC-SHA
+Server public key is 2048 bit
+SSL-Session:
+    Protocol  : SSLv3
+    Cipher    : EDH-RSA-DES-CBC-SHA
+    Session-ID: F8FF4AFF5E170451272810A21A7D5150BA4A3142F076740F01123B53271110EB
+    Session-ID-ctx: 
+    Master-Key: DD4BEF4E0F60B8465A90AC991E3AB9CDF1FC36DC518CC0C4B1A1C3DD329456A6E81788367A69B5CE3152953AC66AAEE7
+    Key-Arg   : None
+    Start Time: 410
+    Timeout   : 7200 (sec)
+    Verify return code: 18 (self signed certificate)
+---
+HELLO FROM SERVER
+HELLO FROM CLIENT
+read:errno=0
+value = 0 = 0x0
+-> 
+

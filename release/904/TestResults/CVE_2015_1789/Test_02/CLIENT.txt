@@ -1,0 +1,59 @@
+neominds@neominds-desktop:~/openssl-1.0.1o$ sudo ./apps/openssl s_client -ssl3 -cert client_crafted.crt -key client.key -cipher DES-CBC-SHA -connect 192.168.1.113:443
+Enter pass phrase for client.key:
+CONNECTED(00000003)
+depth=0 C = in, ST = ka, L = ba, O = neo, OU = neo, CN = neo, emailAddress = a@b.com
+verify error:num=18:self signed certificate
+verify return:1
+depth=0 C = in, ST = ka, L = ba, O = neo, OU = neo, CN = neo, emailAddress = a@b.com
+verify return:1
+3075991228:error:14094410:SSL routines:SSL3_READ_BYTES:sslv3 alert handshake failure:s3_pkt.c:1300:SSL alert number 40
+3075991228:error:1409E0E5:SSL routines:SSL3_WRITE_BYTES:ssl handshake failure:s3_pkt.c:637:
+---
+Certificate chain
+ 0 s:/C=in/ST=ka/L=ba/O=neo/OU=neo/CN=neo/emailAddress=a@b.com
+   i:/C=in/ST=ka/L=ba/O=neo/OU=neo/CN=neo/emailAddress=a@b.com
+---
+Server certificate
+-----BEGIN CERTIFICATE-----
+MIICSTCCAbICCQDA4aN63NA+FzANBgkqhkiG9w0BAQUFADBpMQswCQYDVQQGEwJp
+bjELMAkGA1UECAwCa2ExCzAJBgNVBAcMAmJhMQwwCgYDVQQKDANuZW8xDDAKBgNV
+BAsMA25lbzEMMAoGA1UEAwwDbmVvMRYwFAYJKoZIhvcNAQkBFgdhQGIuY29tMB4X
+DTE1MDgyNDA2MzY0OVoXDTE2MDgyMzA2MzY0OVowaTELMAkGA1UEBhMCaW4xCzAJ
+BgNVBAgMAmthMQswCQYDVQQHDAJiYTEMMAoGA1UECgwDbmVvMQwwCgYDVQQLDANu
+ZW8xDDAKBgNVBAMMA25lbzEWMBQGCSqGSIb3DQEJARYHYUBiLmNvbTCBnzANBgkq
+hkiG9w0BAQEFAAOBjQAwgYkCgYEA0AABuFdpOztd18KR+bipkhNPC5oS5k3a8HTX
+7z9itS6GU1CFuXtmB0w0MNGkjAeIbtxX5YfYO3oCoSz6o7QouWHullFtGpwth2Er
+rDBLomqMsDVtLNFZ7JmQtq1/xVZcR2+Kqtl/cvSunfiOQ79Asde0dxtS87I2H+Ey
+M9e9qDUCAwEAATANBgkqhkiG9w0BAQUFAAOBgQAKp3jhsQrIYcRTdWBw96D9B4/c
+Cy/ApH2OUqAnkx/ccJNy6YnIiciPE7OawTNfkmdskRf103sX2CDbea/ZdqhutV3K
+esFJ/0pC8YQDxTw1WXhBg5zwLOZOWLPR5XsjE6kPj19LTTdgXk9joHJQYAXBgogz
+/2cHWkGoIMf9T9s8rw==
+-----END CERTIFICATE-----
+subject=/C=in/ST=ka/L=ba/O=neo/OU=neo/CN=neo/emailAddress=a@b.com
+issuer=/C=in/ST=ka/L=ba/O=neo/OU=neo/CN=neo/emailAddress=a@b.com
+---
+No client certificate CA names sent
+---
+SSL handshake has read 676 bytes and written 2102 bytes
+---
+New, TLSv1/SSLv3, Cipher is DES-CBC-SHA
+Server public key is 1024 bit
+Secure Renegotiation IS NOT supported
+Compression: NONE
+Expansion: NONE
+SSL-Session:
+    Protocol  : SSLv3
+    Cipher    : DES-CBC-SHA
+    Session-ID: 
+    Session-ID-ctx: 
+    Master-Key: 21FD6B177C5C9ECA0CA94D680CF9312AF90EF5EB0BAA02B3372F169EB650FC4C9B6F4583C2CA1F24EF3DC55EDAA78EBB
+    Key-Arg   : None
+    PSK identity: None
+    PSK identity hint: None
+    SRP username: None
+    Start Time: 1440579612
+    Timeout   : 7200 (sec)
+    Verify return code: 18 (self signed certificate)
+---
+neominds@neominds-desktop:~/openssl-1.0.1o$ 
+

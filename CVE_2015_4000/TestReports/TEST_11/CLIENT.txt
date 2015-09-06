@@ -1,0 +1,14 @@
+-> nm_client_main("5","-ssl3","-cipher","EDH-RSA-DES-CBC-SHA","-connect","192.168.1.78:4433")
+creating ssl context
+calling SSL_new
+calling init_client
+CONNECTED(00000004)
+depth=0 /C=in/ST=ka/L=ba/O=neo/OU=neo/CN=neo/emailAddress=neo@neo.in
+verify error:num=18:self signed certificate
+verify return:1
+depth=0 /C=in/ST=ka/L=ba/O=neo/OU=neo/CN=neo/emailAddress=neo@neo.in
+verify return:1
+8385072:error:14082174:SSL routines:SSL3_CHECK_CERT_AND_ALGORITHM:dh key too small:s3_clnt.c:2016:
+value = 0 = 0x0
+-> 
+

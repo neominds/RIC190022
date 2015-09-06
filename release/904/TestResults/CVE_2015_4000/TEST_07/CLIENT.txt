@@ -1,0 +1,34 @@
+neominds@neominds-desktop:~/openssl-1.0.2$ ./apps/openssl s_client -ssl3 -cipher EXP-EDH-RSA-DES-CBC-SHA -connect 192.168.1.113:4433
+CONNECTED(00000003)
+3076175548:error:14094410:SSL routines:ssl3_read_bytes:sslv3 alert handshake failure:s3_pkt.c:1456:SSL alert number 40
+3076175548:error:1409E0E5:SSL routines:ssl3_write_bytes:ssl handshake failure:s3_pkt.c:644:
+---
+no peer certificate available
+---
+No client certificate CA names sent
+---
+SSL handshake has read 7 bytes and written 0 bytes
+---
+New, (NONE), Cipher is (NONE)
+Secure Renegotiation IS NOT supported
+Compression: NONE
+Expansion: NONE
+No ALPN negotiated
+SSL-Session:
+    Protocol  : SSLv3
+    Cipher    : 0000
+    Session-ID: 
+    Session-ID-ctx: 
+    Master-Key: 
+    Key-Arg   : None
+    PSK identity: None
+    PSK identity hint: None
+    SRP username: None
+    Start Time: 1441452235
+    Timeout   : 7200 (sec)
+    Verify return code: 0 (ok)
+---
+neominds@neominds-desktop:~/openssl-1.0.2$ 
+
+
+

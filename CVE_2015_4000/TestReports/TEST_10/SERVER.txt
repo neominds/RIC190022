@@ -1,0 +1,10 @@
+neominds@neominds-desktop:~/openssl-1.0.2$ ./apps/openssl s_server -cert sha1rsa.pem -key sha1rsakey.pem -accept 4433
+Using default temp DH parameters
+ACCEPT
+bad gethostbyaddr
+ERROR
+shutting down SSL
+CONNECTION CLOSED
+ACCEPT
+
+

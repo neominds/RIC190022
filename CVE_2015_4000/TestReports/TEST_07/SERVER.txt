@@ -1,0 +1,11 @@
+-> nm_server_main("7","-ssl3","-cert","sha1rsa.pem","-key","sha1rsakey.pem","-accept","4433")
+Using default temp DH parameters
+ACCEPT
+bad gethostbyaddr
+ERROR
+8385072:error:1408A0C1:SSL routines:SSL3_GET_CLIENT_HELLO:no shared cipher:s3_srvr.c:897:
+shutting down SSL
+CONNECTION CLOSED
+ACCEPT
+
+
