@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2015 WRKK / WRS, Jayesh Babu
+ *
+ * The right to copy, distribute, modify or otherwise make use
+ * of this software may be licensed only pursuant to the terms
+ * of an applicable Wind River license agreement.
+ */
+
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -69,29 +77,17 @@ int validateCertificateDates(X509_STORE_CTX *x509_ctx,X509 *err_cert,int *prever
 	struct timespec time_value;
 	ASN1_TIME *nbf = X509_get_notBefore(err_cert);
 	ASN1_TIME *naf = X509_get_notAfter(err_cert);
+
+	//get the timeinfo.
 	clock_gettime(CLOCK_REALTIME,&time_value);
 	currentTime=time_value.tv_sec;
-	//get the timeinfo.
-	#ifdef NM_DEBUG
-	printf("Entring [%s][%s][%d] currenttime=%x\n",__FILE__,__FUNCTION__,__LINE__,currentTime);
-	printf("x509_ctx->error=%d\n",x509_ctx->error);
-	printf("Time stamp for nbf is \n");
-	for(nm_i=0;nm_i<nbf->length;nm_i++)
-	printf("%c",nbf->data[nm_i]);
-	printf("\n");
-	printf("Time stamp for naf is \n");
-	for(nm_i=0;nm_i<naf->length;nm_i++)
-	printf("%c",naf->data[nm_i]);
-	printf("\n");
-	printf("Tot length is nbf=%d naf=%d\n",nbf->length,naf->length);
-	#endif
+	
 	X509_cmp_time(nbf, &currentTime);
 	
 	switch (x509_ctx->error) {
 		case X509_V_ERR_CERT_NOT_YET_VALID:
         case X509_V_ERR_CERT_HAS_EXPIRED:
 			if (currentTime > 0) {
-				//printf("[%s][%s][%d] \n",__FILE__,__FUNCTION__,__LINE__);
 				cmpTimeResult = X509_cmp_time(X509_get_notBefore(err_cert), &currentTime);
 				if (cmpTimeResult == 0) {
 				    retVal = X509_V_ERR_ERROR_IN_CERT_NOT_BEFORE_FIELD;
@@ -101,7 +97,6 @@ int validateCertificateDates(X509_STORE_CTX *x509_ctx,X509 *err_cert,int *prever
 			}
 			if (retVal == 0) {
 				if (time > 0) {
-					//printf("[%s][%s][%d] \n",__FILE__,__FUNCTION__,__LINE__);
 					cmpTimeResult = X509_cmp_time(X509_get_notAfter(err_cert), &currentTime);
 					if (cmpTimeResult == 0) {
 						retVal = X509_V_ERR_ERROR_IN_CERT_NOT_AFTER_FIELD;
@@ -113,11 +108,10 @@ int validateCertificateDates(X509_STORE_CTX *x509_ctx,X509 *err_cert,int *prever
 			if (retVal == 0) {
 				x509_ctx->error = 0;
 				*preverify_ok = 1;
-				//printf("[%s][%s][%d] \n",__FILE__,__FUNCTION__,__LINE__);
 			}
 		break;
 	}
-	//printf("Exitintg [%s][%s][%d] \n",__FILE__,__FUNCTION__,__LINE__);
+
 	return retVal;
 }
 
@@ -222,7 +216,7 @@ SSL_CTX *initSSLServerContext() {
 		SSL_CTX_free(ssl_ctx);
 		return NULL;
 	}
-	//printf("returning ssl_ctx %x\n",ssl_ctx);
+
 	return ssl_ctx;
 } 
 
@@ -255,10 +249,7 @@ int initServerSocket() {
 	
 	return server_sock;
 }	
- 
-
-
-	
+ 	
 void cve1789_server() {
 	
 	SSL_CTX *ssl_ctx = NULL;		
@@ -292,20 +283,14 @@ void cve1789_server() {
 			/* A SSL structure is created */
 			ssl = SSL_new(ssl_ctx);
 			if (ssl) {
-				#if 0  // BIO option
-					BIO   *ssl_bio;
-					ssl_bio = BIO_new_socket(client_socket, BIO_NOCLOSE);
-					BIO_set_nbio(ssl_bio, 1); /* 1 = non-blocking */
-					SSL_set_bio(pSsl, ssl_bio, ssl_bio);
-				#endif
  
 				/* Assign the socket into the SSL structure (SSL and socket without BIO) */
 				SSL_set_fd(ssl, client_socket);
  
 				status = SSL_accept(ssl);
 				if (status == 1) {
-				printf("Connection is established\n");
-				scanf("%d\n",&number);
+					printf("Connection is established\n");
+					scanf("%d\n",&number);
 					/* Receive data from the SSL client */
 					/* Send data to the SSL client */					 
 				} else {
@@ -326,4 +311,3 @@ void cve1789_server() {
 	if (ssl_ctx)
 		SSL_CTX_free(ssl_ctx);
 }
-

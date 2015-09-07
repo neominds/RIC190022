@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2015 WRKK / WRS, Jayesh Babu
+ *
+ * The right to copy, distribute, modify or otherwise make use
+ * of this software may be licensed only pursuant to the terms
+ * of an applicable Wind River license agreement.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <openssl/crypto.h>
@@ -7,8 +15,6 @@
 
 #define RSA_SERVER_CERT "server3.crt"
 #define RSA_SERVER_KEY  "server3.key"
-//#define SMIME_IN_FILE	"cve1790_crafted_input.txt"
-#define SSL_TRACE
 
 /*
    EnvelopedData ::= SEQUENCE {
@@ -79,7 +85,6 @@ int cve_1790app(char *filename)
 			printf("\nError reading PKCS#7 object\n");
 			goto err;
 		}
-		
 		
 		printf("Invoking PKCS7_decrypt function..\n");
 		if (PKCS7_decrypt(pkcs7, pkey, cert, out, flags_nm) != 1)
