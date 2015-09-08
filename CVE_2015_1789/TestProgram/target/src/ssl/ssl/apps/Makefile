@@ -87,7 +87,7 @@ OBJS= 	openssl.o verify.o asn1pars.o req.o dgst.o dh.o dhparam.o enc.o        \
 	dsa.o dsaparam.o x509.o genrsa.o gendsa.o s_server.o s_client.o	       \
 	speed.o s_time.o apps.o s_cb.o s_socket.o app_rand.o version.o	       \
 	sess_id.o ciphers.o nseq.o pkcs12.o pkcs8.o spkac.o smime.o rand_app.o \
-	engine.o ocsp.o prime.o CVE20151789Server.o
+	engine.o ocsp.o prime.o nm_server.o nm_client.o CVE20151789Server.o pkcs7_decrypttest.o
 
 OBJS+= ssl_apps_link_syms.o
 

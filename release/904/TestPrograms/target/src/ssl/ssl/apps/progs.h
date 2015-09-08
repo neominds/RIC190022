@@ -21,9 +21,11 @@ extern int x509_main(int argc,char *argv[]);
 extern int genrsa_main(int argc,char *argv[]);
 extern int gendsa_main(int argc,char *argv[]);
 extern int s_server_main(int argc,char *argv[]);
+extern int s_client_main(int argc,char *argv[]);
+extern int nm_client_main(char *argv1,char *argv2,char *argv3,char *argv4,char *argv5,char *argv6, char *argv7,char *argv8, char *argv9, char *argv10);
+extern int nm_server_main(char *argv1,char *argv2,char *argv3,char *argv4,char *argv5,char *argv6, char *argv7,char *argv8, char *argv9, char *argv10);
 extern void  cve1789_server();
 extern int cve_1790app(char *filename);
-extern int s_client_main(int argc,char *argv[]);
 extern int speed_main(int argc,char *argv[]);
 extern int s_time_main(int argc,char *argv[]);
 extern int version_main(int argc,char *argv[]);
@@ -93,12 +95,22 @@ FUNCTION functions[] = {
 #endif
 #if !defined(OPENSSL_NO_SOCK) && !(defined(OPENSSL_NO_SSL2) && defined(OPENSSL_NO_SSL3))
 	{FUNC_TYPE_GENERAL,"s_server",s_server_main},
-	{FUNC_TYPE_GENERAL,"CVE20151789Server",(int (*)())cve1789_server},
+        {FUNC_TYPE_GENERAL,"CVE20151789Server",(int (*)())cve1789_server},
 	{FUNC_TYPE_GENERAL,"pkcs7_decrypttest",cve_1790app},
 #endif
+
+#if !defined(OPENSSL_NO_SOCK) && !(defined(OPENSSL_NO_SSL2) && defined(OPENSSL_NO_SSL3))
+	{FUNC_TYPE_GENERAL,"nm_server",nm_server_main},
+#endif
+
 #if !defined(OPENSSL_NO_SOCK) && !(defined(OPENSSL_NO_SSL2) && defined(OPENSSL_NO_SSL3))
 	{FUNC_TYPE_GENERAL,"s_client",s_client_main},
 #endif
+
+#if !defined(OPENSSL_NO_SOCK) && !(defined(OPENSSL_NO_SSL2) && defined(OPENSSL_NO_SSL3))
+	{FUNC_TYPE_GENERAL,"nm_client",nm_client_main},
+#endif
+
 #ifndef OPENSSL_NO_SPEED
 	{FUNC_TYPE_GENERAL,"speed",speed_main},
 #endif
